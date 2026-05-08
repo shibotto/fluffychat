@@ -380,6 +380,7 @@ class ChatListController extends State<ChatList>
     _hackyWebRTCFixForWeb();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
+        _showBatteryOptimizationDialog();
         searchServer = Matrix.of(
           context,
         ).store.getString(_serverStoreNamespace);
@@ -431,6 +432,34 @@ class ChatListController extends State<ChatList>
     _onRoomTagUpdate?.cancel();
     scrollController.removeListener(_onScroll);
     super.dispose();
+  }
+
+  Future<void> _showBatteryOptimizationDialog() async {
+    if (!PlatformInfos.isAndroid) return;
+
+    const _channel = MethodChannel('fluffy_power_manager');
+    final bool isIgnoringBatteryOptimizations = await _channel.invokeMethod(
+          'isIgnoringBatteryOptimizations',
+        ) ?? false;
+    if (isIgnoringBatteryOptimizations) return;
+
+    const msc4028RuleId = '.org.matrix.msc4028.encrypted_event';
+    final client = Matrix.of(context).client;
+    final overrideRules = client.globalPushRules?.override ?? [];
+    final msc4028Enabled = overrideRules.any(
+      (r) => r.ruleId == msc4028RuleId && r.enabled,
+    );
+    if (!msc4028Enabled) return;
+
+    final result = await showOkAlertDialog(
+      context: context,
+      title: L10n.of(context).batteryOptimizationTitle,
+      message: L10n.of(context).batteryOptimizationMessage,
+      okLabel: L10n.of(context).next,
+    );
+    if (result != OkCancelResult.ok) return;
+
+    await _channel.invokeMethod('requestIgnoreBatteryOptimizations');
   }
 
   void _processPushHelperCrashReport() {

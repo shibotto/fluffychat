@@ -49,6 +49,8 @@ extension PushRuleExtension on PushRule {
         return l10n.notificationRuleServerAcl;
       case '.im.vector.jitsi':
         return l10n.notificationRuleJitsi;
+      case '.org.matrix.msc4028.encrypted_event':
+        return l10n.notificationRuleMsc4028EncryptedEvent;
       default:
         return ruleId.split('.').last.replaceAll('_', ' ').capitalize();
     }
@@ -96,6 +98,8 @@ extension PushRuleExtension on PushRule {
         return l10n.notificationRuleServerAclDescription;
       case '.im.vector.jitsi':
         return l10n.notificationRuleJitsiDescription;
+      case '.org.matrix.msc4028.encrypted_event':
+        return l10n.notificationRuleMsc4028EncryptedEventDescription;
       default:
         return l10n.unknownPushRule(ruleId);
     }

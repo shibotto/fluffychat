@@ -2566,6 +2566,8 @@
     "notificationRuleJitsiDescription": "Notifies the user about Jitsi widget events.",
     "notificationRuleServerAcl": "Suppress Server ACL Events",
     "notificationRuleServerAclDescription": "Suppresses notifications for Server ACL events.",
+    "notificationRuleMsc4028EncryptedEvent": "Push all encrypted events except for muted rooms (MSC4028)",
+    "notificationRuleMsc4028EncryptedEventDescription": "Notify the user about mentions and keywords in encrypted rooms, but may reduce battery life.",
     "unknownPushRule": "Unknown push rule '{rule}'",
     "@unknownPushRule": {
         "type": "String",
@@ -2744,6 +2746,8 @@
     "reset": "Reset",
     "supportFluffyChat": "Support FluffyChat",
     "support": "Support",
+    "batteryOptimizationTitle": "Battery optimizations enabled",
+    "batteryOptimizationMessage": "FluffyChat needs unrestricted background network access to get notifications in encrypted rooms.\nIf this is undesired, you can disable \"Push all encrypted events except for muted rooms (MSC4028)\" from Settings > Notifications.",
     "setLowPriority": "Set low priority",
     "unsetLowPriority": "Unset low priority",
     "removeCallFromChat": "Remove call from chat",

@@ -182,6 +182,15 @@ Future<void> _tryPushHelper(
     return;
   }
 
+  // Try to handle MSC4028
+  if (event.originalSource?.type == EventTypes.Encrypted &&
+      event.type != EventTypes.Encrypted) {
+    final evaluatedActions = client.pushruleEvaluator.match(event);
+    if (!evaluatedActions.notify) {
+      return;
+    }
+  }
+
   final matrixLocals = MatrixLocals(l10n);
 
   // Calculate the body
