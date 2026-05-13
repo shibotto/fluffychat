@@ -190,7 +190,7 @@ Future<void> notificationTap(
             displayPendingEvent: false,
           );
         case FluffyChatNotificationActions.mute:
-          await room.setPushRuleState(PushRuleState.mentionsOnly);
+          await room.setPushRuleState(PushRuleState.dontNotify);
         case FluffyChatNotificationActions.open:
           router?.go(
             client.getRoomById(roomId)?.membership == Membership.invite

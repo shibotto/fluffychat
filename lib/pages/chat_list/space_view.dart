@@ -346,7 +346,7 @@ class _SpaceViewState extends State<SpaceView> {
       case SpaceChildAction.mute:
         await showFutureLoadingDialog(
           context: context,
-          future: () => room!.setPushRuleState(PushRuleState.mentionsOnly),
+          future: () => room!.setPushRuleState(PushRuleState.dontNotify),
         );
       case SpaceChildAction.unmute:
         await showFutureLoadingDialog(
